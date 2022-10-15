@@ -1,20 +1,10 @@
-import { Auditorium } from './../../movie/interface/auditorium';
-import {
-  Column,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { AuditoriumEntity } from 'src/api/auditorium/entity/auditorium.entity';
+import { Auditorium } from 'src/api/auditorium/entity/auditorium.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class SeatEntity {
-  @PrimaryGeneratedColumn({
-    type: 'bigint',
-    name: 'auditorium_id',
-  })
-  auditorium_id: number;
+export class Seat {
+  @PrimaryGeneratedColumn({})
+  id: number;
 
   @Column({
     nullable: false,
@@ -29,15 +19,6 @@ export class SeatEntity {
   })
   description: string;
 
-  @Column({
-    nullable: false,
-    default: '',
-  })
-  start_at: string;
-
-  @ManyToOne(
-    () => AuditoriumEntity,
-    (AuditoriumEntity) => AuditoriumEntity.seats,
-  )
-  auditorium: AuditoriumEntity;
+  @ManyToOne(() => Auditorium, (Auditorium) => Auditorium.seats)
+  auditorium: Auditorium;
 }

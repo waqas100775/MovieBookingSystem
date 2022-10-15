@@ -10,8 +10,8 @@ import { AuditoriumModule } from './api/auditorium/auditorium.module';
 
 @Module({
   imports: [MovieModule, DatabaseModule, AuditoriumModule, SeatModule],
-  controllers: [AppController, AuditoriumController],
-  providers: [AppService, AuditoriumService],
+  controllers: [AppController],
+  providers: [AppService],
   exports: [DatabaseModule],
 })
 export class AppModule {}

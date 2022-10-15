@@ -31,10 +31,10 @@ export class ResponseService {
   }
 
   serverFailureResponse(result, @Res() res: Response) {
-    res.status(HttpStatus.BAD_REQUEST).json({
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
       status: false,
-      statusCode: HttpStatus.BAD_REQUEST,
-      message: result,
+      statusCode: HttpStatus.INTERNAL_SERVER_ERROR,
+      message: 'Internal Server Error',
       payload: result,
     });
   }

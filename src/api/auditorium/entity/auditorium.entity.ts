@@ -1,13 +1,18 @@
-import { SeatEntity } from './../../seat/entity/seat.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Movie } from 'src/api/movie/entities/movie.entity';
+import { Seat } from './../../seat/entity/seat.entity';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class AuditoriumEntity {
-  @PrimaryGeneratedColumn({
-    type: 'bigint',
-    name: 'auditorium_id',
-  })
-  auditorium_id: number;
+export class Auditorium {
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column({
     nullable: false,
@@ -16,7 +21,6 @@ export class AuditoriumEntity {
   name: string;
 
   @Column({
-    name: 'description',
     nullable: false,
     default: '',
   })
@@ -42,9 +46,15 @@ export class AuditoriumEntity {
 
   @Column({
     nullable: false,
-    default: '',
+    type: 'integer',
   })
-  total_seats: string;
+  rows: number;
+
+  @Column({
+    nullable: false,
+    type: 'integer',
+  })
+  columns: number;
 
   @Column({
     nullable: false,
@@ -52,6 +62,11 @@ export class AuditoriumEntity {
   })
   reserved_seats: string;
 
-  @OneToMany(() => SeatEntity, (SeatEntity) => SeatEntity.auditorium)
-  seats: SeatEntity;
+  @OneToMany(() => Seat, (Seat) => Seat.auditorium, {
+    cascade: true,
+  })
+  seats: Seat;
+
+  @ManyToOne(() => Movie, (Movie) => Movie.auditoriums)
+  movie: Movie;
 }

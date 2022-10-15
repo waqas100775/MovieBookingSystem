@@ -1,11 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Auditorium } from 'src/api/auditorium/entity/auditorium.entity';
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
-export class MovieRepo {
-  @PrimaryGeneratedColumn({
-    type: 'bigint',
-    name: 'movie_id',
-  })
+export class Movie {
+  @PrimaryGeneratedColumn({})
+  @Index()
   id: number;
 
   @Column({
@@ -33,10 +39,6 @@ export class MovieRepo {
   })
   date: string;
 
-  @Column({
-    nullable: false,
-    default: null,
-    foreignKeyConstraintName: 'auditorium_id',
-  })
-  slots: number;
+  @OneToMany(() => Auditorium, (Auditorium) => Auditorium.movie)
+  auditoriums: Auditorium[];
 }
