@@ -1,5 +1,6 @@
+import { SeatEntity } from './../../api/seat/entity/seat.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuditoriumEntity } from 'src/api/movie/entities/auditorium.entity';
+import { AuditoriumEntity } from 'src/api/auditorium/entity/auditorium.entity';
 import { MovieRepo } from 'src/api/movie/entities/movie.entity';
 import { ConfigModule } from '../../config/config.module';
 import { ConfigService } from '../../config/config.service';
@@ -17,7 +18,7 @@ try {
       username: configService.PG_USERNAME,
       password: configService.PG_PASSWORD,
       database: configService.PG_DATABASE,
-      entities: [MovieRepo, AuditoriumEntity],
+      entities: [MovieRepo, AuditoriumEntity, SeatEntity],
       synchronize: true,
     }),
   })),

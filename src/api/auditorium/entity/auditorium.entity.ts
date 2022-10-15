@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { SeatEntity } from './../../seat/entity/seat.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class AuditoriumEntity {
@@ -50,4 +51,7 @@ export class AuditoriumEntity {
     default: '',
   })
   reserved_seats: string;
+
+  @OneToMany(() => SeatEntity, (SeatEntity) => SeatEntity.auditorium)
+  seats: SeatEntity;
 }
